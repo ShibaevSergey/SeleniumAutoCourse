@@ -18,3 +18,9 @@ def generated_person():
         current_address=faker_ru.address(),
         permanent_address=faker_ru.address(),
     )
+
+def generated_file():
+    path = fr'C:\Users\shibaev_SA\Desktop\{random.randint(1, 999)}.txt'
+    with open(path, 'w+') as file:
+        file.write(f'Рандомное число: {random.randint(1, 999)}')
+    return path

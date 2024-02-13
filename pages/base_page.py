@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BasePage:
@@ -30,3 +31,14 @@ class BasePage:
 
     def go_to_element(self, element):
         self.driver.execute_script("arguments[0].scrollIntoView;", element)
+
+    def double_click(self, element):
+        action = ActionChains(self.driver).double_click(element)
+        action.perform()
+
+    def right_click(self, element):
+        action = ActionChains(self.driver).context_click(element)
+        action.perform()
+
+    # def upload_file(self, filePath: str):
+    #     file_input = self.element_is_presence(self.locator)
