@@ -80,6 +80,7 @@ class TestElements:
         def test_click_buttons(self, driver):
             buttons_page = ButtonsPage(driver, 'https://demoqa.com/buttons')
             buttons_page.open()
+            time.sleep(0.5)
             assert buttons_page.check_double_click() == 'You have done a double click', 'Двойной клик не был совершен'
             assert buttons_page.check_right_click() == 'You have done a right click', 'Клик правой кнопкой мыши не был совершен'
             assert buttons_page.check_click() == 'You have done a dynamic click', 'Клик не был совершен'
@@ -118,7 +119,7 @@ class TestElements:
             assert dynamic_properties_page.check_enable() == False
             assert dynamic_properties_page.check_colour() == 'rgba(255, 255, 255, 1)'
             assert dynamic_properties_page.check_exists() == False
-            time.sleep(5)
+            time.sleep(6)
             assert dynamic_properties_page.check_enable() == True
             assert dynamic_properties_page.check_colour() == 'rgba(220, 53, 69, 1)'
-            assert dynamic_properties_page.check_visible() == True
+            assert dynamic_properties_page.check_exists() == True

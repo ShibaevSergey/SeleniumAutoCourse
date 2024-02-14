@@ -40,5 +40,5 @@ class BasePage:
         action = ActionChains(self.driver).context_click(element)
         action.perform()
 
-    # def upload_file(self, filePath: str):
-    #     file_input = self.element_is_presence(self.locator)
+    def remove_footer(self):
+        self.driver.execute_script("document.getElementsByTagName('footer')[0].remove();")

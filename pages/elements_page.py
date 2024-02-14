@@ -1,6 +1,9 @@
 import base64
 import random
 import time
+
+from selenium.common import TimeoutException
+
 from generator.generator import generated_person, generated_file
 from selenium.webdriver.common.by import By
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocator, \
@@ -70,7 +73,7 @@ class CheckBoxPage(BasePage):
 class RadioButtonPage(BasePage):
     locators = RadioButtonPageLocator()
 
-    def click_rbвот_and_return_name(self, rb: RadioButtonPageLocator) -> str:
+    def click_rb_and_return_name(self, rb: RadioButtonPageLocator) -> str:
         rb = self.element_is_visible(rb)
         rb.click()
         return rb.text
@@ -164,7 +167,7 @@ class LinksPage(BasePage):
     def check_new_tab_home(self):
         home_link = self.element_is_visible(self.locators.HOME)
         home_href = home_link.get_attribute('href')
-        request = requests.get(f'{home_href}bad-request')
+        request = requests.get(f'{home_href}')
         if request.status_code == 200:
             home_link.click()
             self.driver.switch_to.window(self.driver.window_handles[1])
@@ -216,7 +219,8 @@ class DynamicPropertiesPage(BasePage):
         return self.element_is_visible(self.locators.COLOUR).value_of_css_property("color")
 
     def check_exists(self):
-        return self.driver.find_element(By.CSS_SELECTOR, 'button[id="visibleAfter"]')
-
-    def check_visible(self):
-        return self.driver.find_element(By.CSS_SELECTOR, 'button[id="visibleAfter"]')
+        try:
+            self.element_is_visible(self.locators.VISIBLE, 1)
+        except TimeoutException:
+            return False
+        return True
