@@ -2,10 +2,14 @@ import random
 from datetime import date
 from data.data import Person
 from faker import Faker
+from data.data import Date
 
 faker_ru = Faker('ru_RU')
+faker_en = Faker('en_US')
 Faker.seed()
 subjects = ["Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science", "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"]
+colors = ["Red", "Blue", "Green", "Yellow", "Purple", "Black", "White", "Voilet", "Indigo", "Magenta", "Aqua"]
+cars = ['Volvo', 'Saab', 'Opel', 'Audi']
 def generated_person():
     yield Person(
         full_name=faker_ru.first_name() + ' ' + faker_ru.last_name() + ' ' + faker_ru.middle_name(),
@@ -29,3 +33,11 @@ def generated_file():
     with open(path, 'w+') as file:
         file.write(f'Рандомное число: {random.randint(1, 999)}')
     return path
+
+def generated_date():
+    yield Date(
+        year=faker_en.year(),
+        month=faker_en.month_name(),
+        day=faker_en.day_of_month(),
+        time='12:00'
+    )

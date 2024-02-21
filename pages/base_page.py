@@ -45,3 +45,7 @@ class BasePage:
 
     def switch_tab(self, tabIndex: int):
         self.driver.switch_to.window(self.driver.window_handles[tabIndex])
+
+    def move_to_element(self, element):
+        action = ActionChains(self.driver).move_to_element(element)
+        action.perform()
